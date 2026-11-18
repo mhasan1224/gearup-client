@@ -1,15 +1,9 @@
-
 "use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  Menu,
-  X,
-  Zap,
-} from "lucide-react";
+import { ArrowUpRight, Menu, X, Zap } from "lucide-react";
 
 const navigationLinks = [
   { label: "Home", href: "/" },
@@ -70,9 +64,9 @@ export function Navbar() {
             <Zap size={22} strokeWidth={2.5} />
           </span>
 
-          <span className="font-heading text-2xl font-extrabold tracking-tight">
+          <span className="inline-flex items-baseline font-heading text-2xl font-extrabold tracking-tight">
             Gear<span className="text-accent">Up</span>
-            <span className="ml-1 align-top text-[10px] font-semibold tracking-widest text-muted-foreground">
+            <span className="ml-2 self-center font-sans text-[9px] font-bold tracking-[0.16em] text-muted-foreground">
               RENTALS
             </span>
           </span>
