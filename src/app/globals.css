@@ -5,47 +5,69 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+/* ========================================
+   GEARUP DESIGN SYSTEM
+   Premium Equipment Rental Marketplace
+======================================== */
 
+@theme inline {
+  /* Brand Colors */
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-green: var(--brand-green);
+  --color-brand-blue: var(--brand-blue);
+
+  /* Typography */
   --font-sans: var(--font-inter);
   --font-heading: var(--font-manrope);
   --font-mono: var(--font-geist-mono);
 
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
+  /* Core Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
 
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
 
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Border Radius */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -55,101 +77,146 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* GearUp Light Theme */
+/* ========================================
+   LIGHT THEME
+======================================== */
+
 :root {
   color-scheme: light;
 
-  --background: #f4f2ed;
-  --foreground: #172b3a;
+  /* Brand Palette */
+  --brand-navy: #071827;
+  --brand-teal: #00d6a3;
+  --brand-green: #087f68;
+  --brand-blue: #102b40;
 
+  /* Background */
+  --background: #f5f7f8;
+  --foreground: #102b40;
+
+  /* Cards */
   --card: #ffffff;
-  --card-foreground: #172b3a;
+  --card-foreground: #102b40;
 
+  /* Popovers */
   --popover: #ffffff;
-  --popover-foreground: #172b3a;
+  --popover-foreground: #102b40;
 
-  --primary: #172b3a;
-  --primary-foreground: #ffffff;
+  /* Primary */
+  --primary: #00b98b;
+  --primary-foreground: #071827;
 
-  --secondary: #e9e6df;
-  --secondary-foreground: #172b3a;
+  /* Secondary */
+  --secondary: #e8f0f1;
+  --secondary-foreground: #102b40;
 
-  --muted: #eae8e2;
-  --muted-foreground: #64717a;
+  /* Muted */
+  --muted: #edf1f3;
+  --muted-foreground: #647787;
 
-  --accent: #d97736;
-  --accent-foreground: #ffffff;
+  /* Accent */
+  --accent: #00b98b;
+  --accent-foreground: #071827;
 
+  /* Destructive */
   --destructive: #dc4545;
 
-  --border: #dedbd3;
-  --input: #dedbd3;
-  --ring: #d97736;
+  /* Borders and Inputs */
+  --border: #dce5e9;
+  --input: #dce5e9;
+  --ring: #00b98b;
 
-  --chart-1: #d97736;
-  --chart-2: #23856d;
+  /* Charts */
+  --chart-1: #00b98b;
+  --chart-2: #087f68;
   --chart-3: #315b78;
-  --chart-4: #c59b42;
+  --chart-4: #d49b52;
   --chart-5: #8a6bb5;
 
+  /* Radius */
   --radius: 0.75rem;
 
+  /* Sidebar */
   --sidebar: #ffffff;
-  --sidebar-foreground: #172b3a;
-  --sidebar-primary: #172b3a;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f4f2ed;
-  --sidebar-accent-foreground: #172b3a;
-  --sidebar-border: #dedbd3;
-  --sidebar-ring: #d97736;
+  --sidebar-foreground: #102b40;
+  --sidebar-primary: #00b98b;
+  --sidebar-primary-foreground: #071827;
+  --sidebar-accent: #e8f0f1;
+  --sidebar-accent-foreground: #102b40;
+  --sidebar-border: #dce5e9;
+  --sidebar-ring: #00b98b;
 }
 
-/* GearUp Dark Theme */
+/* ========================================
+   DARK THEME
+======================================== */
+
 .dark {
   color-scheme: dark;
 
-  --background: #101c25;
-  --foreground: #f4f2ed;
+  /* Brand Palette */
+  --brand-navy: #071827;
+  --brand-teal: #00d6a3;
+  --brand-green: #087f68;
+  --brand-blue: #102b40;
 
-  --card: #172b3a;
-  --card-foreground: #f4f2ed;
+  /* Background */
+  --background: #071827;
+  --foreground: #f5f8fa;
 
-  --popover: #172b3a;
-  --popover-foreground: #f4f2ed;
+  /* Cards */
+  --card: #102b40;
+  --card-foreground: #f5f8fa;
 
-  --primary: #e7edf1;
-  --primary-foreground: #172b3a;
+  /* Popovers */
+  --popover: #102b40;
+  --popover-foreground: #f5f8fa;
 
-  --secondary: #263b49;
-  --secondary-foreground: #f4f2ed;
+  /* Primary */
+  --primary: #00d6a3;
+  --primary-foreground: #071827;
 
-  --muted: #263b49;
-  --muted-foreground: #aab7c0;
+  /* Secondary */
+  --secondary: #17374b;
+  --secondary-foreground: #f5f8fa;
 
-  --accent: #e58a4d;
-  --accent-foreground: #172b3a;
+  /* Muted */
+  --muted: #17374b;
+  --muted-foreground: #b8c5d1;
 
+  /* Accent */
+  --accent: #00d6a3;
+  --accent-foreground: #071827;
+
+  /* Destructive */
   --destructive: #ef6464;
 
-  --border: #344956;
-  --input: #344956;
-  --ring: #e58a4d;
+  /* Borders and Inputs */
+  --border: #294457;
+  --input: #294457;
+  --ring: #00d6a3;
 
-  --chart-1: #e58a4d;
-  --chart-2: #42a78b;
+  /* Charts */
+  --chart-1: #00d6a3;
+  --chart-2: #087f68;
   --chart-3: #6b9bbd;
   --chart-4: #e2b95c;
   --chart-5: #aa8bd3;
 
-  --sidebar: #172b3a;
-  --sidebar-foreground: #f4f2ed;
-  --sidebar-primary: #e58a4d;
-  --sidebar-primary-foreground: #172b3a;
-  --sidebar-accent: #263b49;
-  --sidebar-accent-foreground: #f4f2ed;
-  --sidebar-border: #344956;
-  --sidebar-ring: #e58a4d;
+  /* Sidebar */
+  --sidebar: #102b40;
+  --sidebar-foreground: #f5f8fa;
+  --sidebar-primary: #00d6a3;
+  --sidebar-primary-foreground: #071827;
+  --sidebar-accent: #17374b;
+  --sidebar-accent-foreground: #f5f8fa;
+  --sidebar-border: #294457;
+  --sidebar-ring: #00d6a3;
 }
+
+/* ========================================
+   BASE STYLES
+======================================== */
 
 @layer base {
   * {
@@ -158,11 +225,15 @@
 
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-inter), sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
@@ -172,5 +243,127 @@
   h5,
   h6 {
     font-family: var(--font-manrope), sans-serif;
+    letter-spacing: -0.035em;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: rgb(0 214 163 / 25%);
+    color: #071827;
+  }
+}
+
+/* ========================================
+   PREMIUM DESIGN UTILITIES
+======================================== */
+
+@layer utilities {
+  /* Teal Gradient Text */
+  .text-gradient-teal {
+    background: linear-gradient(
+      90deg,
+      #00d6a3 0%,
+      #00efbd 50%,
+      #00b98b 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* Premium Glass Effect */
+  .glass-panel {
+    background: rgb(7 24 39 / 65%);
+    border: 1px solid rgb(255 255 255 / 14%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  /* Light Glass Effect */
+  .glass-light {
+    background: rgb(255 255 255 / 82%);
+    border: 1px solid rgb(255 255 255 / 55%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  /* Teal Glow */
+  .glow-teal {
+    box-shadow: 0 0 30px rgb(0 214 163 / 18%);
+  }
+
+  /* Teal Gradient Background */
+  .bg-gradient-brand {
+    background: linear-gradient(
+      135deg,
+      #00d6a3 0%,
+      #00b98b 55%,
+      #087f68 100%
+    );
+  }
+
+  /* Hero Image Overlay */
+  .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgb(7 24 39 / 96%) 0%,
+        rgb(7 24 39 / 78%) 38%,
+        rgb(7 24 39 / 30%) 72%,
+        rgb(7 24 39 / 12%) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgb(7 24 39 / 55%) 0%,
+        transparent 45%
+      );
+  }
+
+  /* Subtle Dark Overlay */
+  .image-overlay {
+    background: linear-gradient(
+      180deg,
+      rgb(7 24 39 / 5%) 0%,
+      rgb(7 24 39 / 75%) 100%
+    );
+  }
+
+  /* Premium Card Hover */
+  .card-hover {
+    transition:
+      transform 300ms ease,
+      box-shadow 300ms ease,
+      border-color 300ms ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgb(7 24 39 / 12%);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
