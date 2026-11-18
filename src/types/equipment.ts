@@ -9,11 +9,20 @@ export type EquipmentCategory =
 
 export type RentalType = "Daily" | "Weekly" | "Monthly";
 
+export type EquipmentCondition =
+  | "New"
+  | "Like New"
+  | "Good"
+  | "Fair";
+
 export interface Equipment {
   id: string;
   name: string;
   description: string;
   category: EquipmentCategory;
+  brand: string;
+  model: string;
+  condition: EquipmentCondition;
   location: string;
   price: number;
   rentalType: RentalType;
@@ -22,12 +31,14 @@ export interface Equipment {
   availableQuantity: number;
   rating: number;
   reviewCount: number;
+  rentalTerms: string[];
   owner: {
     name: string;
     verified: boolean;
   };
   createdAt: string;
 }
+
 export interface EquipmentFilterValues {
   search: string;
   category: EquipmentCategory | "All";

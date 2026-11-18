@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 import {
   ArrowRight,
   CalendarDays,
@@ -89,7 +89,7 @@ export function HowItWorks() {
         </div>
 
         <div className="mt-16 flex justify-center">
-          <a
+          <Link
             href="/equipment"
             className="group inline-flex items-center gap-2 rounded-xl bg-[#00D6A3] px-6 py-3.5 text-sm font-bold text-[#071827] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#35E8BE] hover:shadow-[0_10px_30px_rgba(0,214,163,0.2)]"
           >
@@ -98,7 +98,7 @@ export function HowItWorks() {
               size={17}
               className="transition-transform duration-300 group-hover:translate-x-1"
             />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
