@@ -4,7 +4,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -21,7 +20,6 @@ import {
   UserRound,
   Wrench,
 } from "lucide-react";
-
 import type { Equipment } from "@/types/equipment";
 import { BookingModal } from "@/components/equipment/booking-modal";
 
@@ -29,10 +27,11 @@ interface EquipmentDetailsProps {
   equipment: Equipment;
 }
 
-export function EquipmentDetails({
-  equipment,
-}: EquipmentDetailsProps) {
+export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  const isEquipmentAvailable =
+    equipment.available && equipment.availableQuantity > 0;
 
   const specifications = [
     {
@@ -51,385 +50,353 @@ export function EquipmentDetails({
       icon: Wrench,
     },
     {
-      label: "Category",
-      value: equipment.category,
-      icon: Truck,
-    },
-    {
-      label: "Availability",
-      value: equipment.available
-        ? `${equipment.availableQuantity} Units`
-        : "Currently Unavailable",
-      icon: CalendarDays,
-    },
-    {
       label: "Rental Type",
       value: equipment.rentalType,
       icon: Clock3,
     },
+    {
+      label: "Location",
+      value: equipment.location,
+      icon: MapPin,
+    },
+    {
+      label: "Availability",
+      value: isEquipmentAvailable
+        ? `${equipment.availableQuantity} Units`
+        : "Currently Unavailable",
+      icon: CalendarDays,
+    },
   ];
 
   return (
-    <main className="min-h-screen bg-[#f5f8fa] pb-20 dark:bg-[#071827]">
-      <div className="mx-auto max-w-[1440px] px-5 pt-8 sm:px-8 lg:px-12">
-        <Link
-          href="/equipment"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-[#087f68] dark:text-slate-400 dark:hover:text-[#00d6a3]"
-        >
-          <ArrowLeft size={17} />
-          Back to Equipment
-        </Link>
-
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1.35fr_0.85fr] lg:gap-12">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="group relative overflow-hidden rounded-3xl bg-[#102b40] shadow-xl"
+    <>
+      <main className="min-h-screen bg-[#f5f8fa] pb-16 dark:bg-[#071827]">
+        {/* Breadcrumb */}
+        <div className="border-b border-gray-200 bg-white dark:border-white/10 dark:bg-[#102b40]">
+          <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8">
+            <Link
+              href="/equipment"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-[#087f68] dark:text-slate-400 dark:hover:text-[#00d6a3]"
             >
-              <div className="relative aspect-[16/10] w-full">
+              <ArrowLeft size={16} />
+              Back to Equipment
+            </Link>
+          </div>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-5 pt-8 sm:px-8 lg:pt-10">
+          {/* Page Heading */}
+          <div className="mb-8">
+            <div className="mb-3 flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-[#00d6a3]/10 px-3 py-1 text-xs font-bold text-[#087f68] dark:text-[#00d6a3]">
+                {equipment.category}
+              </span>
+
+              <span
+                className={`rounded-full px-3 py-1 text-xs font-bold ${
+                  isEquipmentAvailable
+                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                    : "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400"
+                }`}
+              >
+                {isEquipmentAvailable ? "Available for Rent" : "Unavailable"}
+              </span>
+            </div>
+
+            <h1 className="text-3xl font-extrabold tracking-tight text-[#071827] sm:text-4xl dark:text-white">
+              {equipment.name}
+            </h1>
+
+            <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+              <span className="inline-flex items-center gap-1.5">
+                <MapPin size={16} />
+                {equipment.location}
+              </span>
+
+              <span className="inline-flex items-center gap-1.5">
+                <Star size={16} className="fill-amber-400 text-amber-400" />
+                <strong className="text-slate-700 dark:text-slate-200">
+                  {equipment.rating}
+                </strong>
+                ({equipment.reviewCount} reviews)
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_380px]">
+            {/* Left Content */}
+            <div className="space-y-8">
+              {/* Equipment Image */}
+              <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-[#e9eff1] shadow-sm">
                 <Image
                   src={equipment.image}
                   alt={equipment.name}
                   fill
                   priority
                   unoptimized
+                  className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 65vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071827]/70 via-transparent to-transparent" />
-
-                <div className="absolute left-5 top-5">
-                  <span className="rounded-full border border-white/20 bg-[#071827]/65 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md">
-                    {equipment.category}
-                  </span>
-                </div>
-
-                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-medium text-white/70">
-                      EQUIPMENT CONDITION
-                    </p>
-                    <p className="mt-1 text-lg font-bold text-white">
-                      {equipment.condition}
-                    </p>
-                  </div>
-
-                  <div
-                    className={`rounded-full px-3 py-2 text-xs font-bold ${
-                      equipment.available
-                        ? "bg-[#00d6a3] text-[#071827]"
-                        : "bg-red-500 text-white"
-                    }`}
-                  >
-                    {equipment.available
-                      ? "Available"
-                      : "Unavailable"}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-8"
-            >
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-[#e1f8f1] px-3 py-1.5 text-xs font-bold text-[#087f68] dark:bg-[#00d6a3]/10 dark:text-[#00d6a3]">
-                  {equipment.category}
-                </span>
-
-                <div className="flex items-center gap-1.5 text-sm font-semibold text-amber-500">
-                  <Star size={16} fill="currentColor" />
-                  {equipment.rating}
-                  <span className="font-normal text-slate-500 dark:text-slate-400">
-                    ({equipment.reviewCount} reviews)
-                  </span>
+                <div
+                  className={`absolute left-5 top-5 rounded-full px-4 py-2 text-xs font-bold shadow-lg ${
+                    isEquipmentAvailable
+                      ? "bg-emerald-500 text-white"
+                      : "bg-red-500 text-white"
+                  }`}
+                >
+                  {isEquipmentAvailable
+                    ? `${equipment.availableQuantity} Units Available`
+                    : "Currently Unavailable"}
                 </div>
               </div>
 
-              <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-[#102b40] sm:text-4xl lg:text-5xl dark:text-white">
-                {equipment.name}
-              </h1>
+              {/* Description */}
+              <section className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8 dark:border-white/10 dark:bg-[#102b40]">
+                <h2 className="text-xl font-extrabold text-[#071827] dark:text-white">
+                  About This Equipment
+                </h2>
 
-              <div className="mt-4 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-                <MapPin size={17} className="text-[#00a982]" />
-                {equipment.location}
-              </div>
+                <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base dark:text-slate-300">
+                  {equipment.description}
+                </p>
+              </section>
 
-              <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600 dark:text-slate-300">
-                {equipment.description}
-              </p>
-            </motion.div>
+              {/* Specifications */}
+              <section className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8 dark:border-white/10 dark:bg-[#102b40]">
+                <h2 className="text-xl font-extrabold text-[#071827] dark:text-white">
+                  Equipment Specifications
+                </h2>
 
-            <section className="mt-12">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#00d6a3]/10 text-[#087f68] dark:text-[#00d6a3]">
-                  <Wrench size={20} />
-                </div>
+                <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  {specifications.map((item) => {
+                    const Icon = item.icon;
 
-                <div>
-                  <h2 className="text-xl font-bold text-[#102b40] dark:text-white">
-                    Equipment Specifications
-                  </h2>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Important equipment information
-                  </p>
-                </div>
-              </div>
+                    return (
+                      <div
+                        key={item.label}
+                        className="flex items-start gap-3 rounded-2xl bg-[#f5f8fa] p-4 dark:bg-[#071827]/70"
+                      >
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00d6a3]/10 text-[#087f68] dark:text-[#00d6a3]">
+                          <Icon size={19} />
+                        </div>
 
-              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {specifications.map((specification, index) => {
-                  const Icon = specification.icon;
+                        <div className="min-w-0">
+                          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                            {item.label}
+                          </p>
 
-                  return (
-                    <motion.div
-                      key={specification.label}
-                      initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.35,
-                        delay: index * 0.05,
-                      }}
-                      className="flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 dark:border-white/10 dark:bg-[#102b40]"
-                    >
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#e1f8f1] text-[#087f68] dark:bg-[#00d6a3]/10 dark:text-[#00d6a3]">
-                        <Icon size={20} />
+                          <p className="mt-1 break-words text-sm font-bold text-[#071827] dark:text-white">
+                            {item.value}
+                          </p>
+                        </div>
                       </div>
-
-                      <div className="min-w-0">
-                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                          {specification.label}
-                        </p>
-                        <p className="mt-1 truncate text-sm font-bold text-[#102b40] dark:text-white">
-                          {specification.value}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </section>
-
-            <section className="mt-12">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#00d6a3]/10 text-[#087f68] dark:text-[#00d6a3]">
-                  <ShieldCheck size={20} />
+                    );
+                  })}
                 </div>
+              </section>
 
-                <div>
-                  <h2 className="text-xl font-bold text-[#102b40] dark:text-white">
-                    Rental Terms & Conditions
-                  </h2>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Please review before booking
-                  </p>
-                </div>
-              </div>
+              {/* Rental Terms */}
+              <section className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8 dark:border-white/10 dark:bg-[#102b40]">
+                <h2 className="text-xl font-extrabold text-[#071827] dark:text-white">
+                  Rental Terms & Conditions
+                </h2>
 
-              <div className="mt-6 rounded-2xl border border-slate-200/80 bg-white p-5 sm:p-6 dark:border-white/10 dark:bg-[#102b40]">
-                <ul className="space-y-4">
+                <div className="mt-5 space-y-4">
                   {equipment.rentalTerms.map((term, index) => (
-                    <li
-                      key={`${index}-${term}`}
-                      className="flex items-start gap-3 text-sm leading-6 text-slate-600 dark:text-slate-300"
-                    >
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#00d6a3]/15 text-[#087f68] dark:text-[#00d6a3]">
+                    <div key={`${index}-${term}`} className="flex gap-3">
+                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#00d6a3]/10 text-[#087f68] dark:text-[#00d6a3]">
                         <Check size={13} strokeWidth={3} />
-                      </span>
-                      {term}
-                    </li>
+                      </div>
+
+                      <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
+                        {term}
+                      </p>
+                    </div>
                   ))}
-                </ul>
-              </div>
-            </section>
-
-            <section className="mt-12">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#00d6a3]/10 text-[#087f68] dark:text-[#00d6a3]">
-                  <UserRound size={20} />
                 </div>
+              </section>
 
-                <div>
-                  <h2 className="text-xl font-bold text-[#102b40] dark:text-white">
-                    Equipment Owner
-                  </h2>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Listed by this equipment provider
-                  </p>
-                </div>
-              </div>
+              {/* Owner Information */}
+              <section className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8 dark:border-white/10 dark:bg-[#102b40]">
+                <h2 className="text-xl font-extrabold text-[#071827] dark:text-white">
+                  Equipment Owner
+                </h2>
 
-              <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white p-5 dark:border-white/10 dark:bg-[#102b40]">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-xl font-extrabold text-[#071827]">
-                    {equipment.owner.name.charAt(0)}
-                  </div>
-
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-bold text-[#102b40] dark:text-white">
-                        {equipment.owner.name}
-                      </h3>
-
-                      {equipment.owner.verified && (
-                        <BadgeCheck
-                          size={17}
-                          className="text-[#00a982]"
-                        />
-                      )}
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#00d6a3]/10 text-[#087f68] dark:text-[#00d6a3]">
+                      <UserRound size={26} />
                     </div>
 
-                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                      {equipment.owner.verified
-                        ? "Verified equipment owner"
-                        : "Equipment provider"}
-                    </p>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="font-bold text-[#071827] dark:text-white">
+                          {equipment.owner.name}
+                        </h3>
+
+                        {equipment.owner.verified && (
+                          <BadgeCheck
+                            size={17}
+                            className="text-[#087f68] dark:text-[#00d6a3]"
+                          />
+                        )}
+                      </div>
+
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                        Equipment Owner
+                      </p>
+                    </div>
+                  </div>
+
+                  {equipment.owner.verified && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">
+                      <ShieldCheck size={15} />
+                      Verified Owner
+                    </span>
+                  )}
+                </div>
+              </section>
+            </div>
+
+            {/* Booking Sidebar */}
+            <aside className="lg:sticky lg:top-24">
+              <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-xl shadow-slate-200/40 dark:border-white/10 dark:bg-[#102b40] dark:shadow-black/20">
+                <div className="bg-gradient-to-br from-[#071827] to-[#102b40] p-6 text-white">
+                  <p className="text-sm font-medium text-slate-300">
+                    Rental Price
+                  </p>
+
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="text-4xl font-extrabold tracking-tight">
+                      ৳{equipment.price.toLocaleString("en-BD")}
+                    </span>
+
+                    <span className="text-sm font-medium text-slate-300">
+                      / {equipment.rentalType.toLowerCase()}
+                    </span>
+                  </div>
+
+                  <div className="mt-5 flex items-center gap-2 text-sm text-slate-300">
+                    <MapPin size={15} />
+                    {equipment.location}
                   </div>
                 </div>
 
-                <span className="rounded-full bg-[#e1f8f1] px-3 py-2 text-xs font-bold text-[#087f68] dark:bg-[#00d6a3]/10 dark:text-[#00d6a3]">
-                  GearUp Provider
-                </span>
-              </div>
-            </section>
-          </div>
-
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-xl dark:border-white/10 dark:bg-[#102b40]"
-            >
-              <div className="bg-gradient-to-br from-[#071827] to-[#102b40] p-6 text-white sm:p-8">
-                <p className="text-sm font-medium text-white/65">
-                  Rental Price
-                </p>
-
-                <div className="mt-3 flex items-baseline gap-2">
-                  <span className="text-4xl font-extrabold tracking-tight">
-                    ৳{equipment.price.toLocaleString("en-BD")}
-                  </span>
-                  <span className="text-sm text-white/65">
-                    / {equipment.rentalType.toLowerCase()}
-                  </span>
-                </div>
-
-                <div className="mt-5 flex items-center gap-2 text-xs text-white/70">
-                  <CalendarDays size={15} />
-                  Flexible rental scheduling
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-3 text-sm">
-                    <span className="text-slate-500 dark:text-slate-400">
-                      Availability
+                <div className="space-y-5 p-6">
+                  {/* Availability */}
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Availability Status
                     </span>
+
                     <span
-                      className={`font-bold ${
-                        equipment.available
-                          ? "text-[#087f68] dark:text-[#00d6a3]"
+                      className={`text-sm font-bold ${
+                        isEquipmentAvailable
+                          ? "text-emerald-600 dark:text-emerald-400"
                           : "text-red-500"
                       }`}
                     >
-                      {equipment.available
-                        ? "Available Now"
+                      {isEquipmentAvailable
+                        ? `${equipment.availableQuantity} Units`
                         : "Unavailable"}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-3 text-sm">
-                    <span className="text-slate-500 dark:text-slate-400">
-                      Available Units
+                  <div className="h-px bg-gray-100 dark:bg-white/10" />
+
+                  {/* Rating */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Customer Rating
                     </span>
-                    <span className="font-bold text-[#102b40] dark:text-white">
-                      {equipment.availableQuantity}
+
+                    <span className="inline-flex items-center gap-1.5 text-sm font-bold text-[#071827] dark:text-white">
+                      <Star
+                        size={16}
+                        className="fill-amber-400 text-amber-400"
+                      />
+                      {equipment.rating} ({equipment.reviewCount})
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-3 text-sm">
-                    <span className="text-slate-500 dark:text-slate-400">
+                  <div className="h-px bg-gray-100 dark:bg-white/10" />
+
+                  {/* Rental Type */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                       Rental Period
                     </span>
-                    <span className="font-bold text-[#102b40] dark:text-white">
+
+                    <span className="text-sm font-bold text-[#071827] dark:text-white">
                       {equipment.rentalType}
                     </span>
                   </div>
-                </div>
 
-                <div className="my-6 border-t border-dashed border-slate-200 dark:border-white/10" />
+                  {/* Booking Button */}
+                  <button
+                    type="button"
+                    disabled={!isEquipmentAvailable}
+                    onClick={() => {
+                      if (isEquipmentAvailable) {
+                        setIsBookingOpen(true);
+                      }
+                    }}
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#00d6a3] px-5 py-4 text-sm font-extrabold text-[#071827] shadow-lg shadow-[#00d6a3]/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00bd90] hover:shadow-xl disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
+                  >
+                    {isEquipmentAvailable
+                      ? "Book This Equipment"
+                      : "Currently Unavailable"}
 
-                <button
-                  type="button"
-                  disabled={!equipment.available}
-                  onClick={() => setIsBookingOpen(true)}
-                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#00d6a3] px-5 py-4 text-sm font-extrabold text-[#071827] shadow-lg shadow-[#00d6a3]/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00bd90] hover:shadow-xl disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
-                >
-                  {equipment.available
-                    ? "Book This Equipment"
-                    : "Currently Unavailable"}
+                    {isEquipmentAvailable && (
+                      <ArrowRight
+                        size={18}
+                        className="transition-transform group-hover:translate-x-1"
+                      />
+                    )}
+                  </button>
 
-                  {equipment.available && (
-                    <ArrowRight
-                      size={18}
-                      className="transition-transform group-hover:translate-x-1"
+                  <p className="text-center text-xs leading-5 text-slate-400">
+                    <ShieldCheck
+                      size={14}
+                      className="mr-1 inline-block align-text-bottom"
                     />
-                  )}
-                </button>
+                    Secure booking experience
+                  </p>
 
-                <p className="mt-4 text-center text-xs leading-5 text-slate-500 dark:text-slate-400">
-                  <ShieldCheck
-                    size={14}
-                    className="mr-1 inline text-[#00a982]"
-                  />
-                  Secure booking experience with GearUp
-                </p>
+                  <div className="rounded-2xl bg-[#f5f8fa] p-4 dark:bg-[#071827]/70">
+                    <div className="flex items-start gap-3">
+                      <Truck
+                        size={19}
+                        className="mt-0.5 shrink-0 text-[#087f68] dark:text-[#00d6a3]"
+                      />
 
-                <div className="mt-6 rounded-xl bg-[#f0f8f6] p-4 dark:bg-[#071827]/60">
-                  <div className="flex items-start gap-3">
-                    <div className="mt-0.5 text-[#087f68] dark:text-[#00d6a3]">
-                      <Truck size={19} />
-                    </div>
+                      <div>
+                        <p className="text-sm font-bold text-[#071827] dark:text-white">
+                          Flexible Rental
+                        </p>
 
-                    <div>
-                      <p className="text-sm font-bold text-[#102b40] dark:text-white">
-                        Need assistance?
-                      </p>
-                      <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                        Review the rental terms or contact the equipment
-                        provider before confirming your booking.
-                      </p>
+                        <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                          Choose your preferred rental dates and quantity
+                          before confirming your booking.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
-
-            <Link
-              href="/equipment"
-              className="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-[#087f68] dark:text-slate-400 dark:hover:text-[#00d6a3]"
-            >
-              Explore more equipment
-              <ArrowRight size={16} />
-            </Link>
-          </aside>
+            </aside>
+          </div>
         </div>
-      </div>
+      </main>
 
+      {/* Booking Modal */}
       {isBookingOpen && (
         <BookingModal
           equipment={equipment}
           onClose={() => setIsBookingOpen(false)}
         />
       )}
-    </main>
+    </>
   );
 }

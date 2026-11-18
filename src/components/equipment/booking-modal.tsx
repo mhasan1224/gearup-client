@@ -52,6 +52,8 @@ export function BookingModal({ equipment, onClose }: BookingModalProps) {
   });
 
   const [showReview, setShowReview] = useState(false);
+  const [validationError, setValidationError] = useState("");
+
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
 
@@ -86,13 +88,55 @@ export function BookingModal({ equipment, onClose }: BookingModalProps) {
       ...previous,
       [field]: value,
     }));
+
+    setValidationError("");
   };
 
   const handleReview = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (rentalDays <= 0) return;
+    if (!equipment.available || equipment.availableQuantity < 1) {
+      setValidationError("Sorry, this equipment is currently unavailable.");
+      return;
+    }
 
+    if (!formValues.startDate || !formValues.endDate) {
+      setValidationError("Please select your rental start and end dates.");
+      return;
+    }
+
+    if (formValues.endDate <= formValues.startDate) {
+      setValidationError("End date must be after the start date.");
+      return;
+    }
+
+    if (rentalDays <= 0) {
+      setValidationError("Please select a valid rental duration.");
+      return;
+    }
+
+    if (
+      !Number.isInteger(formValues.quantity) ||
+      formValues.quantity < 1 ||
+      formValues.quantity > equipment.availableQuantity
+    ) {
+      setValidationError(
+        `You can rent between 1 and ${equipment.availableQuantity} units.`,
+      );
+      return;
+    }
+
+    if (!formValues.contactNumber.trim()) {
+      setValidationError("Please enter your contact number.");
+      return;
+    }
+
+    if (!formValues.deliveryAddress.trim()) {
+      setValidationError("Please enter your delivery address.");
+      return;
+    }
+
+    setValidationError("");
     setShowReview(true);
   };
 
@@ -349,9 +393,22 @@ export function BookingModal({ equipment, onClose }: BookingModalProps) {
                 </div>
               )}
 
+              {validationError && (
+                <div
+                  role="alert"
+                  className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400"
+                >
+                  {validationError}
+                </div>
+              )}
+
               <button
                 type="submit"
-                disabled={rentalDays <= 0}
+                disabled={
+                  !equipment.available ||
+                  equipment.availableQuantity < 1 ||
+                  rentalDays <= 0
+                }
                 className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#00d6a3] px-5 py-4 text-sm font-extrabold text-[#071827] transition-all hover:bg-[#00bd90] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500"
               >
                 Review Booking
