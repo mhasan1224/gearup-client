@@ -1,4 +1,3 @@
-
 import {
   LayoutDashboard,
   CalendarDays,
@@ -11,6 +10,7 @@ import {
   Settings,
   ChartNoAxesCombined,
   Bell,
+  MessageSquare,
   type LucideIcon,
 } from "lucide-react";
 
@@ -27,10 +27,7 @@ export interface DashboardNavGroup {
   items: DashboardNavItem[];
 }
 
-export const dashboardNavConfig: Record<
-  DashboardRole,
-  DashboardNavGroup[]
-> = {
+export const dashboardNavConfig: Record<DashboardRole, DashboardNavGroup[]> = {
   customer: [
     {
       title: "Workspace",
@@ -145,6 +142,11 @@ export const dashboardNavConfig: Record<
           label: "All Rentals",
           href: "/dashboard/admin/rentals",
           icon: CalendarDays,
+        },
+        {
+          label: "Reviews",
+          href: "/dashboard/admin/reviews",
+          icon: MessageSquare,
         },
         {
           label: "Reports & Analytics",
