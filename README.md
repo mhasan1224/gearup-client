@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GearUp Rentals — Frontend
+
+A modern equipment rental platform built with Next.js, React, and TypeScript. GearUp allows customers to discover and rent equipment while owners can manage their listings and administrators can oversee platform activities.
+
+## Features
+
+- **Authentication:** Secure sign-up and sign-in with Better Auth.
+- **Equipment Marketplace:** Browse, search, filter, and view equipment details.
+- **Role-Based Dashboard:** Separate dashboard experiences for Customers, Owners, and Admins.
+- **Equipment Management:** Owners can add, update, and manage their equipment listings.
+- **Favorites:** Save and manage favorite equipment.
+- **Rental Management:** Customers can manage their rentals and Owners can handle rental requests.
+- **Online Payments:** Stripe-powered checkout experience.
+- **Analytics:** Dashboard analytics for Owners and Admins.
+- **User Management:** Admins can manage platform users and roles.
+- **Theme Settings:** Light Mode, Dark Mode, and System Default.
+- **Notifications:** Toast notifications for user feedback.
+- **Responsive Design:** Optimized for desktop, tablet, and mobile devices.
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js 16 | React framework |
+| React 19 | UI library |
+| TypeScript | Type safety |
+| Tailwind CSS 4 | Styling |
+| shadcn/ui | UI components |
+| Base UI | Accessible component primitives |
+| Framer Motion | Animations |
+| Lucide React | Icons |
+| Better Auth | Authentication |
+| next-themes | Theme management |
+| Sonner | Toast notifications |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js
+- npm
+- A running GearUp backend server
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/mhasan1224/gearup-client.git
+cd gearup-client
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:5000
+```
+
+Update the URLs according to your backend configuration.
+
+### 4. Start the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Backend Integration
 
-To learn more about Next.js, take a look at the following resources:
+The frontend communicates with the GearUp Express API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Local backend:** `http://localhost:5000`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Production backend:** `https://gearup-server-three.vercel.app`
 
-## Deploy on Vercel
+For local development, the frontend uses the local backend. Production requests are configured to use the deployed backend through Next.js rewrites.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Theme Preferences
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GearUp supports three appearance settings:
+
+- **Light Mode:** Always use the light theme.
+- **Dark Mode:** Always use the dark theme.
+- **System Default:** Automatically follow the operating system's appearance.
+
+Theme preferences persist across page refreshes.
+
+## Deployment
+
+The frontend is deployed on Vercel.
+
+**Live Website:**  
+https://gearup-client-iota.vercel.app
+
+## Related Repository
+
+**Backend Repository:**  
+https://github.com/mhasan1224/gearup-server
+
+---
+
+Developed as part of Programming Hero Assignment 09 — Category 003.
