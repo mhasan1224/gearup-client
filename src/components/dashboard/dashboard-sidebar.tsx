@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -96,7 +95,7 @@ const navigationByRole: Record<UserRole, NavigationItem[]> = {
       href: "/dashboard/equipment",
       icon: Package,
     },
-    
+
     {
       label: "Manage Reviews",
       href: "/dashboard/reviews",
@@ -194,11 +193,15 @@ export default function DashboardSidebar() {
 
       <div className="border-t border-border p-4">
         <Link
-          href="/"
-          className="mb-2 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          href="/dashboard/settings"
+          className={`mb-2 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${
+            pathname === "/dashboard/settings"
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+          }`}
         >
           <Settings size={19} />
-          Back to Website
+          Settings
         </Link>
 
         <button
