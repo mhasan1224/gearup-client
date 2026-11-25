@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async rewrites() {
+    return [
+      {
+        source: "/api/auth/:path*",
+        destination:
+          "https://gearup-server-three.vercel.app/api/auth/:path*",
+      },
+    ];
+  },
+
   experimental: {
     agentFeedback: true,
   },
