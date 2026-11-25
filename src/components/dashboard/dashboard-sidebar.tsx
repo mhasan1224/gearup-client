@@ -96,11 +96,7 @@ const navigationByRole: Record<UserRole, NavigationItem[]> = {
       href: "/dashboard/equipment",
       icon: Package,
     },
-    {
-      label: "All Rentals",
-      href: "/dashboard/rentals",
-      icon: ClipboardList,
-    },
+    
     {
       label: "Manage Reviews",
       href: "/dashboard/reviews",

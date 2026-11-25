@@ -18,7 +18,10 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://gearup-server-three.vercel.app/api/:path*",
+        destination:
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:5000/api/:path*"
+            : "https://gearup-server-three.vercel.app/api/:path*",
       },
     ];
   },
