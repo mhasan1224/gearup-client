@@ -24,7 +24,7 @@ export default function LoginForm() {
     try {
       const result = await signIn.social({
         provider: "google",
-        callbackURL: "http://localhost:3000/",
+        callbackURL: `${window.location.origin}/`,
       });
 
       if (result.error) {
